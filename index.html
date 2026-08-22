@@ -199,6 +199,7 @@
   .work-card::before{content:""; position:absolute; inset:0; background:linear-gradient(155deg, var(--pink-deep), var(--black) 75%); opacity:.88;}
   .work-card.thumb-web::before{background:linear-gradient(155deg, #315B3A, var(--black) 80%);}
   .work-card.thumb-mobile::before{background:linear-gradient(155deg, #2E5266, var(--black) 80%);}
+  .work-card.thumb-tennis::before{background:linear-gradient(155deg, #2f7d32, #0f2412 80%);}
   .work-card .play{
     position:absolute; top:18px; right:18px; z-index:1;
     width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.15);
@@ -466,6 +467,19 @@
           <span class="cat">Landing Page</span>
           <h3>Product Launch Site</h3>
           <span class="hint">Click to view photo slides ▸</span>
+        </span>
+      </button>
+
+      <!-- Toro Hills Tennis Club -->
+      <button class="work-card thumb-tennis" onclick="openProject('iframe', {
+          title: 'Toro Hills Tennis Club — Website',
+          src: 'https://beypastrana.github.io/torohillstennisclub/'
+      })">
+        <span class="play">▶</span>
+        <span class="info">
+          <span class="cat">Web Application</span>
+          <h3>Toro Hills Tennis Club Management Website</h3>
+          <span class="hint">Click to open live preview ▸</span>
         </span>
       </button>
 
