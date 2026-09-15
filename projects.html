@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,12 +80,6 @@
   nav ul{list-style:none; display:flex; gap:28px;}
   nav a{font-weight:600; font-size:.92rem;}
   nav a:hover{color:var(--pink-deep);}
-  .switch-btn{
-    background:var(--black); color:var(--cream); padding:10px 20px; border-radius:999px;
-    font-weight:700; font-size:.85rem; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .25s ease, background .25s ease; white-space:nowrap;
-  }
-  .switch-btn:hover{background:var(--pink-hot); transform:translateY(-2px);}
   .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
   .burger span{width:24px; height:2px; background:#1b1420;}
 
@@ -200,6 +193,7 @@
   .work-card.thumb-web::before{background:linear-gradient(155deg, #315B3A, var(--black) 80%);}
   .work-card.thumb-mobile::before{background:linear-gradient(155deg, #2E5266, var(--black) 80%);}
   .work-card.thumb-tennis::before{background:linear-gradient(155deg, #2f7d32, #0f2412 80%);}
+  .work-card.thumb-case::before{background:linear-gradient(155deg, #5B3FA0, var(--black) 80%);}
   .work-card .play{
     position:absolute; top:18px; right:18px; z-index:1;
     width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.15);
@@ -342,6 +336,17 @@
     .projects-page-wrap .work-grid {
       margin-top: 0;
     }
+
+    /* ---------- Scroll reveal transitions ---------- */
+    .reveal{
+      opacity:0; transform:translateY(28px);
+      transition:opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+      will-change:opacity, transform;
+    }
+    .reveal.in-view{opacity:1; transform:translateY(0);}
+    @media (prefers-reduced-motion: reduce){
+      .reveal{opacity:1; transform:none; transition:none;}
+    }
   </style>
 </head>
 <body>
@@ -478,25 +483,19 @@
         </span>
       </button>
 
-
-      <!-- Department of Agriculture Kiosk Application -->
-      <button class="work-card thumb-web" onclick="openProject('iframe', {
-          title: 'Department Of Agriculture Web/Software Application for Kiosk Machines',
-          src: 'https://qosko.com/home'
+      <!-- FarmMarket PH — UX Case Study -->
+      <button class="work-card thumb-case" onclick="openProject('iframe', {
+          title: 'FarmMarket PH — UX Case Study',
+          src: 'case-study/sitemap.html'
       })">
         <span class="play">▶</span>
         <span class="info">
-          <span class="cat">Web / Software Application</span>
-          <h3>Department Of Agriculture Web/Software Application for Kiosk Machines</h3>
+          <span class="cat">UX Case Study</span>
+          <h3>FarmMarket PH — Sitemap, Journey Map, User Flow, Wireframes, Mockups &amp; Prototype</h3>
           <span class="hint">Click to open live preview ▸</span>
         </span>
       </button>
 
-    </div>
-    <div style="text-align:center; margin-top:34px;">
-      <a href="projects.html" class="email-btn" style="display:inline-flex; text-decoration:none; align-items:center; justify-content:center;">
-        See more of my projects <span style="margin-left:8px;">→</span>
-      </a>
     </div>
   </section>
 
@@ -605,7 +604,32 @@
         if(e.key === 'ArrowRight') lightboxBody.querySelector('.lb-next')?.click();
       }
     });
-  
+
+    // ---------- Scroll reveal transitions ----------
+    (function(){
+      const revealSelectors = [
+        '.projects-page-header', '.back-home', '.section-head', '.work-card'
+      ];
+      const targets = document.querySelectorAll(revealSelectors.join(','));
+      targets.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 6) * 60 + 'ms';
+      });
+
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              entry.target.classList.add('in-view');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        targets.forEach(el => io.observe(el));
+      } else {
+        targets.forEach(el => el.classList.add('in-view'));
+      }
+    })();
   </script>
 </body>
 </html>
