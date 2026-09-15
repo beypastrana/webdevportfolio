@@ -81,12 +81,6 @@
   nav ul{list-style:none; display:flex; gap:28px;}
   nav a{font-weight:600; font-size:.92rem;}
   nav a:hover{color:var(--pink-deep);}
-  .switch-btn{
-    background:var(--black); color:var(--cream); padding:10px 20px; border-radius:999px;
-    font-weight:700; font-size:.85rem; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .25s ease, background .25s ease; white-space:nowrap;
-  }
-  .switch-btn:hover{background:var(--pink-hot); transform:translateY(-2px);}
   .burger{display:none; flex-direction:column; gap:5px; cursor:pointer; background:none; border:none;}
   .burger span{width:24px; height:2px; background:#1b1420;}
 
@@ -312,6 +306,17 @@
   .social-btn:hover{transform:translateY(-3px);opacity:.9;}
   .whatsapp{background:#25D366;}
   .viber{background:#7360F2;}
+
+  /* ---------- Scroll reveal transitions ---------- */
+  .reveal{
+    opacity:0; transform:translateY(28px);
+    transition:opacity .7s cubic-bezier(.16,.84,.44,1), transform .7s cubic-bezier(.16,.84,.44,1);
+    will-change:opacity, transform;
+  }
+  .reveal.in-view{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -602,7 +607,7 @@
   </section>
 
   <footer>
-    © 2026 Roline Beatrix — Web &amp; App Development / UI-UX Portfolio · <a href="video-editing.html" style="color:var(--pink-deep); font-weight:700;">View Video Editing Portfolio →</a>
+    © 2026 Roline Beatrix — Web &amp; App Development / UI-UX Portfolio
   </footer>
 
   <!-- Lightbox: shows projects in-page, never a new tab -->
@@ -706,6 +711,34 @@
         if(e.key === 'ArrowRight') lightboxBody.querySelector('.lb-next')?.click();
       }
     });
+
+    // ---------- Scroll reveal transitions ----------
+    (function(){
+      const revealSelectors = [
+        '.section-head', '.about-card', '.about-text',
+        '.tool-group-label', '.tool-card',
+        '.process-card', '.work-card', '.contact'
+      ];
+      const targets = document.querySelectorAll(revealSelectors.join(','));
+      targets.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 6) * 60 + 'ms';
+      });
+
+      if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if(entry.isIntersecting){
+              entry.target.classList.add('in-view');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        targets.forEach(el => io.observe(el));
+      } else {
+        targets.forEach(el => el.classList.add('in-view'));
+      }
+    })();
   </script>
 </body>
 </html>
