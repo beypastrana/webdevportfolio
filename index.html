@@ -306,6 +306,12 @@
     .lightbox-inner{height:92vh; border-radius:16px;}
     .lb-nav{width:36px; height:36px;}
   }
+
+  .contact-socials{display:flex;justify-content:center;gap:12px;margin-top:16px;}
+  .social-btn{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;color:#fff;font-weight:800;font-size:1.15rem;transition:transform .2s ease,opacity .2s ease;}
+  .social-btn:hover{transform:translateY(-3px);opacity:.9;}
+  .whatsapp{background:#25D366;}
+  .viber{background:#7360F2;}
 </style>
 </head>
 <body>
@@ -515,6 +521,18 @@
         </span>
       </button>
 
+      <!-- St. Luke Metro Hospital -->
+      <button class="work-card" onclick="openProject('iframe', {title: 'St. Luke Metro Hospital — Management System', src: 'https://hospital-management-frontend1.vercel.app/'})">
+        <span class="play">▶</span>
+        <span class="info"><span class="cat">Web Application</span><h3>St. Luke Metro Hospital — Management System</h3><span class="hint">Click to open live preview ▸</span></span>
+      </button>
+
+      <!-- Clota Women -->
+      <button class="work-card" onclick="openProject('iframe', {title: 'Clota Women — Everyday Filipina Fashion', src: 'https://beypastrana.github.io/clotaph-mock/'})">
+        <span class="play">▶</span>
+        <span class="info"><span class="cat">E-Commerce / Web Design</span><h3>Clota Women — Everyday Filipina Fashion</h3><span class="hint">Click to open live preview ▸</span></span>
+      </button>
+
       <!-- Akari PH -->
       <button class="work-card" onclick="openProject('iframe', {
           title: 'Akari PH — Mock Design',
@@ -541,6 +559,11 @@
         </span>
       </button>
 
+    </div>
+    <div style="text-align:center; margin-top:34px;">
+      <a href="projects.html" class="email-btn" style="display:inline-flex; text-decoration:none; align-items:center; justify-content:center;">
+        See more of my projects <span style="margin-left:8px;">→</span>
+      </a>
     </div>
   </section>
 
@@ -570,7 +593,11 @@
       <h2>Contact Me</h2>
       <p>Got a website or app idea? Let's design and build something people actually enjoy using.</p>
       <a class="email-btn" href="mailto:rolinebeatrix09@gmail.com">✉️ rolinebeatrix09@gmail.com</a>
-      <div class="copy-hint">Click to open your mail app</div>
+      <div class="contact-socials" aria-label="Messaging apps">
+        <a href="https://wa.me/639544615196" class="social-btn whatsapp" aria-label="Contact me on WhatsApp" title="WhatsApp">◉</a>
+        <a href="viber://chat?number=%2B639544615196" class="social-btn viber" aria-label="Contact me on Viber" title="Viber">V</a>
+      </div>
+      <div class="copy-hint">Email me or use WhatsApp / Viber</div>
     </div>
   </section>
 
